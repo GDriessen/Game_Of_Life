@@ -4,9 +4,13 @@ var playing = false;
 var startButton = document.getElementById("start");
 var clearButton = document.getElementById("clear");
 var randomButton = document.getElementById("random");
+var slowButton = document.getElementById("slow");
+var fastButton = document.getElementById("fast");
+var rulesButton = document.getElementById("rules");
 var grid = new Array(rows);
 var nextGrid = new Array(rows);
-var reproductionTime = 100;
+var reproductionTime = [10, 25, 50, 75, 100, 150, 200, 300, 400];
+var currentInterval = 4;
 var timer;
 
 // initialize
@@ -17,6 +21,9 @@ function initialize() {
     startButton.onclick = startButtonHandler;
     clearButton.onclick = clearButtonHandler;
     randomButton.onclick = randomButtonHandler;
+    slowButton.onclick = slowButtonHandler;
+    fastButton.onclick = fastButtonHandler;
+    rulesButton.onclick = rulesButtonHandler;
 }
 
 // lay out the board
@@ -95,7 +102,7 @@ function play(){
   console.log("Play the game");
   computeNextGen();
   if (playing) {
-    timer = setTimeout(play, reproductionTime);
+    timer = setTimeout(play, reproductionTime[currentInterval]);
   }
 }  
 
@@ -120,6 +127,21 @@ function clearButtonHandler() {
   clearTable();
   updateView();
   startButton.innerHTML = 'start';
+}
+
+function slowButtonHandler() {
+  console.log("Slower");
+  if (currentInterval < reproductionTime.length) {currentInterval++};
+}
+
+function fastButtonHandler() {
+  console.log("Faster");
+  if (currentInterval > 0) {currentInterval--};
+}
+
+function rulesButtonHandler() {
+  console.log("Rules");
+  alert('A live cell with 0, 1 or more than 3 neighbours dies. A live cell with 2 or 3 neighbours stays alive. A dead cell with 3 neighbours comes alive.');
 }
 
 function randomButtonHandler() {
