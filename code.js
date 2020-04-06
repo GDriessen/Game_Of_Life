@@ -131,7 +131,7 @@ function clearButtonHandler() {
 
 function slowButtonHandler() {
   console.log("Slower");
-  if (currentInterval < reproductionTime.length) {currentInterval++};
+  if (currentInterval < reproductionTime.length - 1) {currentInterval++};
 }
 
 function fastButtonHandler() {
